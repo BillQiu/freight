@@ -39,7 +39,38 @@
 
 ---
 
-## 方式二：Vercel (推荐 - 永久免费)
+## 方式二：Cloudflare Pages (推荐 - 免费 + 自定义子域名)
+
+Cloudflare Pages 非常适合纯前端项目，支持自动构建、全球 CDN、免费 HTTPS 和自定义域名。
+
+**部署步骤**：
+
+1.  **将代码提交到 GitHub**
+    - 如果你还没有 GitHub 仓库，请先创建一个并推送代码。
+
+2.  **在 Cloudflare Pages 创建项目**
+    - 进入 Cloudflare 控制台 -> Pages -> Create a project。
+    - 连接你的 GitHub 仓库并选择该项目。
+
+3.  **配置构建参数**
+    - Framework Preset 选择 `Vite`（或留空，手动填写）。
+    - Build Command：`npm run build`
+    - Build Output Directory：`dist`
+
+4.  **部署**
+    - 点击 "Deploy"，等待构建完成。
+
+5.  **绑定自定义子域名**
+    - 在 Pages 项目里进入 "Custom domains"，添加 `freight.billq.cc`。
+    - 按提示在 Cloudflare DNS 里添加/确认记录（通常是 CNAME 到 `xxxx.pages.dev`）。
+    - 等待生效后访问 `freight.billq.cc`。
+
+**说明**：
+- 本项目已加入 `public/_redirects`，用于单页应用的路由回退（`/* -> /index.html`）。
+
+---
+
+## 方式三：Vercel (推荐 - 永久免费)
 
 Vercel 是目前最流行的前端托管平台，对个人开发者永久免费，速度尚可，且自带 HTTPS。
 
@@ -64,7 +95,7 @@ Vercel 是目前最流行的前端托管平台，对个人开发者永久免费�
 
 ---
 
-## 方式三：GitHub Pages (完全免费)
+## 方式四：GitHub Pages (完全免费)
 
 如果你不想用 Vercel，GitHub 自带的 Pages 服务也是完全免费的。
 
