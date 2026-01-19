@@ -54,7 +54,7 @@ const App: React.FC = () => {
   const [dataMsg, setDataMsg] = useState<string>("当前无数据，请上传 Excel。");
   const [isCustomData, setIsCustomData] = useState(false);
   const [currentView, setCurrentView] = useState<"calculator" | "importer">(
-    "calculator"
+    "calculator",
   );
   const [form] = Form.useForm();
 
@@ -77,8 +77,8 @@ const App: React.FC = () => {
     if (rules.length === 0) return [];
     return Array.from(
       new Set(
-        rules.map((r) => r.weight).filter((w): w is number => w !== undefined)
-      )
+        rules.map((r) => r.weight).filter((w): w is number => w !== undefined),
+      ),
     ).sort((a, b) => a - b);
   }, [rules]);
 
@@ -87,7 +87,7 @@ const App: React.FC = () => {
     (
       data: ArrayBuffer | string,
       type: "binary" | "array" = "binary",
-      saveToStorage = false
+      saveToStorage = false,
     ) => {
       try {
         const workbook = XLSX.read(data, { type });
@@ -118,10 +118,10 @@ const App: React.FC = () => {
           parsedRules = jsonData.flatMap((item, index) => {
             const row = item as Record<string, string | number>;
             const origin = String(
-              row["始发地"] || row["Origin"] || row["origin"] || ""
+              row["始发地"] || row["Origin"] || row["origin"] || "",
             );
             const destination = String(
-              row["目的地"] || row["Destination"] || row["destination"] || ""
+              row["目的地"] || row["Destination"] || row["destination"] || "",
             );
 
             return weightCols
@@ -149,10 +149,10 @@ const App: React.FC = () => {
             const row = item as Record<string, string | number>;
             // 尝试多种可能的列名匹配
             const origin = String(
-              row["始发地"] || row["Origin"] || row["origin"] || ""
+              row["始发地"] || row["Origin"] || row["origin"] || "",
             );
             const destination = String(
-              row["目的地"] || row["Destination"] || row["destination"] || ""
+              row["目的地"] || row["Destination"] || row["destination"] || "",
             );
 
             // 重量处理：支持区间或单一重量
@@ -202,7 +202,7 @@ const App: React.FC = () => {
             };
             localStorage.setItem(
               "freight_data_cache",
-              JSON.stringify(storageData)
+              JSON.stringify(storageData),
             );
             setIsCustomData(true);
             setDataMsg("已加载您上传的本地数据（自动保存）。");
@@ -210,7 +210,7 @@ const App: React.FC = () => {
           } catch (e) {
             console.warn("数据量过大，无法保存到本地缓存", e);
             message.warning(
-              `加载成功，但数据量过大无法自动保存（${parsedRules.length} 条）`
+              `加载成功，但数据量过大无法自动保存（${parsedRules.length} 条）`,
             );
             setIsCustomData(false);
             setDataMsg("已加载上传的数据。");
@@ -225,7 +225,7 @@ const App: React.FC = () => {
         message.error("解析 Excel 文件失败");
       }
     },
-    [isCustomData]
+    [isCustomData],
   );
 
   const loadDefaultData = React.useCallback(async () => {
@@ -486,7 +486,7 @@ const App: React.FC = () => {
                   textAlign: "center",
                 }}>
                 <Statistic
-                  title='预估运费'
+                  title='预估运费（含卸货+操作费）'
                   value={calculatedPrice}
                   precision={2}
                   valueStyle={{ color: "#3f8600" }}
